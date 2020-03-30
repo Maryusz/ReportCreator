@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Report_Creator.Logic
 {
-    class Practice
+    public class Practice
     {
 
         #region Header variables
