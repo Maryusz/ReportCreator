@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logic\CSVReader.cs" />
+    <Compile Include="Logic\GridItem.cs" />
     <Compile Include="Logic\Practice.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

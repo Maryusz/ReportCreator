@@ -22,18 +22,35 @@ namespace Report_Creator.Logic
         // DDT date creation
         public DateTime DDTDate { get; set; }
 
-        // A list of RD present
-        public List<string> RDs { get; set; }
+        // A set of RD present
+        public HashSet<string> RDs { get; set; }
+
+        // List of the received items
+        public List<GridItem> Items { get; set; }
         #endregion
 
         #region Default constructor
         public Practice(string idDDT, string clientName, string documentReference, string documentDate)
         {
+            // idDDT its always number
             DDTID = Int32.Parse(idDDT);
             Client = clientName;
             DDTReference = documentReference;
             DDTDate = DateTime.Parse(documentDate);
         }
         #endregion
+
+        /// <summary>
+        /// Add an Grid Item to the practice, and adds the RD present inside it.
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddItem(GridItem item)
+        {
+            Items.Add(item);
+            RDs.Add(item.RD);
+
+        }
+
+
     }
 }
