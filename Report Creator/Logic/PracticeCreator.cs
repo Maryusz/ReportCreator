@@ -8,15 +8,22 @@ namespace Report_Creator.Logic
 {
     public class PracticeCreator : CSVReader<Practice>
     {
+        #region Private Variables
+        List<Practice> listOfPractices = new List<Practice>();
+        #endregion
 
+        #region Default Constructor
         public PracticeCreator(string path, string[] delimiters) : base(path, delimiters)
         {
 
         }
+        #endregion
+
+        #region Public methods
         public override List<Practice> Items()
         {
             // creates an empty list of practices
-            var listOfPractices = new List<Practice>();
+            
 
             while (!TxtFieldParser.EndOfData)
             {
@@ -32,22 +39,52 @@ namespace Report_Creator.Logic
                 catch (FormatException)
                 {
                     // it its catched, it ignores the line
+                    continue;
                 }
 
                 // If idDDT is correctly parsed, it checks if a practice is already in the listOfPractices with that idDDT
                 if (listOfPractices.Any(p => p.DDTID == idDDT))
                 {
-                    // TODO: se contiene la pratica, non aggiungerla, ma creare solo l'oggetto che va aggiunto alla pratica esistente
+                    // If the practice is present, it adds the item to the practice.
+                    var practice = listOfPractices.Find(p => p.DDTID == idDDT);
+                    practice.AddItem(CreateItem(data));
                 }
                 else
                 {
-                    // TODO: se non esiste, ricavare la pratica già esistente, creare l'oggetto e aggiungerlo.
+                    // If the practice doesn't exist it creates it with the line of data received
+                    var practice = CreatePractice(data);
+
+                    // with the same line as before, it creates a line containing the ITEM data
+                    practice.AddItem(CreateItem(data));
+
+                    listOfPractices.Add(practice);
 
                 }
 
             }
+
+            return listOfPractices;
         }
 
+
+        /// <summary>
+        /// Returns a practice number by IDDDT, if its not present it throws ArgumentException
+        /// </summary>
+        /// <param name="practiceNumber">Number of the practice to be returned</param>
+        /// <returns></returns>
+        public Practice GetPractice(int practiceNumber)
+        {
+            var practice = listOfPractices.Find(p => p.DDTID == practiceNumber);
+
+            if (practice == null) throw 
+                    new ArgumentException();
+            else
+                return practice;
+        }
+
+        #endregion
+
+        #region Private methods
         /// <summary>
         /// Creates a single practice from a line of data
         /// </summary>
@@ -88,5 +125,8 @@ namespace Report_Creator.Logic
 
             return item;
         }
+        #endregion
+
+
     }
 }

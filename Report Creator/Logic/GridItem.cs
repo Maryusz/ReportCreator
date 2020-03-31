@@ -10,7 +10,7 @@ namespace Report_Creator.Logic
     /// <summary>
     /// Represents a GridItem
     /// </summary>
-    class GridItem
+    public class GridItem
     {
         #region Private Members
 

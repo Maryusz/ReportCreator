@@ -23,10 +23,10 @@ namespace Report_Creator.Logic
         public DateTime DDTDate { get; set; }
 
         // A set of RD present
-        public HashSet<string> RDs { get; set; }
+        private HashSet<string> RDs = new HashSet<string>();
 
         // List of the received items
-        public List<GridItem> Items { get; set; }
+        private List<GridItem> Items = new List<GridItem>();
         #endregion
 
         #region Default constructor
@@ -48,7 +48,11 @@ namespace Report_Creator.Logic
         {
             Items.Add(item);
             RDs.Add(item.RD);
+        }
 
+        public int ItemCount()
+        {
+            return Items.Count;
         }
 
 
