@@ -32,7 +32,7 @@ namespace Report_Creator.Logic
             set
             {
                 if (value == "IT2:NUOVA ANAGRAFIC")
-                    m_mlfb = "ANAGRAFICA NON SIEMENS";
+                    m_mlfb = $"NON SIEMENS: {value}";
                 else
                     m_mlfb = value;
             }
@@ -58,6 +58,13 @@ namespace Report_Creator.Logic
 
         }
         #endregion
+
+        public override string ToString()
+        {
+            var text = new StringBuilder();
+            text.AppendLine($"{DetailID} {Quantity,5} {RD,10} {MLFB,20} {SerialNumber,20} {AnomalyDescription,20} {Notes, 5}   ");
+            return text.ToString();
+        }
 
     }
 }

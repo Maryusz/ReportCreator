@@ -55,6 +55,29 @@ namespace Report_Creator.Logic
             return Items.Count;
         }
 
+        public override string ToString()
+        {
+            var report = new StringBuilder();
+            report.AppendLine($"Internal reference: {DDTID}\n");
+            report.AppendLine($"Cliente: {Client}\n");
+            report.AppendLine($"Numero DDT: {DDTReference}\n");
+            report.AppendLine($"Data DDT: {DDTDate.ToString("dd.MM.yyyy")}\n");
+            report.AppendLine($"Pratiche:\t");
+            foreach (var item in RDs)
+            {
+                report.Append(item);
+            }
+
+            report.AppendLine($"----------------- Oggetti");
+
+            foreach (var item in Items)
+            {
+                report.AppendLine(item.ToString());
+            }
+            
+            return report.ToString();
+        }
+
 
     }
 }
